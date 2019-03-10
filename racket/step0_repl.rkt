@@ -16,5 +16,10 @@
 (let loop ()
   (display "user> ")
   (define input (read-line))
-  (displayln (rep input))
-  (loop))
+  (if (eof-object? input)
+      (begin
+        (display "\n")
+        (exit 0))
+      (begin
+       (displayln (rep input))
+       (loop))))
