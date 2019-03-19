@@ -1,25 +1,15 @@
 #!/usr/bin/env racket
 #lang racket
 
-(define (READ str)
-  str)
+(module m racket/base
+  (provide (all-defined-out))
+  (define-namespace-anchor a)
+  (define x 11))
 
-(define (EVAL str)
-  str)
+(require 'm)
 
-(define (PRINT str)
-  str)
+(define ns (namespace-anchor->namespace a))
 
-(define (rep str)
-  (PRINT (EVAL (READ str))))
+(current-namespace ns)
 
-(let loop ()
-  (display "user> ")
-  (define input (read-line))
-  (if (eof-object? input)
-      (begin
-        (display "\n")
-        (exit 0))
-      (begin
-       (displayln (rep input))
-       (loop))))
+(read-eval-print-loop)
